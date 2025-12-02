@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 기존 전체 UI (CoordinatorLayout) -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FBF9F2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 상단 UI들 -->
+        <include
+            android:id="@+id/topBar"
+            layout="@layout/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/storePager"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:layout_marginTop="80dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:overScrollMode="never"
+            android:paddingStart="36dp"
+            android:paddingEnd="36dp"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/indicatorContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="265dp">
+
+            <View
+                android:id="@+id/indicatorOlive"
+                android:layout_width="20dp"
+                android:layout_height="5dp"
+                android:background="@drawable/indicator_active"
+                android:layout_marginEnd="6dp" />
+
+            <View
+                android:id="@+id/indicatorDaiso"
+                android:layout_width="6dp"
+                android:layout_height="5dp"
+                android:background="@drawable/indicator_inactive" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="285dp">
+
+            <ImageView
+                android:id="@+id/locationIcon"
+                android:layout_width="16dp"
+                android:layout_height="12dp"
+                android:src="@drawable/location_olive" />
+
+            <TextView
+                android:id="@+id/locationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="올리브영 대학로점 근처"
+                android:textSize="14sp"
+                android:textColor="#222"
+                android:layout_marginStart="4dp"/>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mapCard"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="330dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="3dp"
+            android:backgroundTint="#FFFFFF">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EDEDED"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 바텀시트 (BottomSheetBehavior) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/memoSheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@android:color/transparent"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="12dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            app:behavior_peekHeight="625dp"
+            app:behavior_hideable="false"
+            app:behavior_fitToContents="false">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <eightbitlab.com.blurview.BlurView
+                    android:id="@+id/sheetBlur"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66FFFFFF"/>
+
+                <!-- 바텀시트 실제 내용 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- 드래그 핸들 -->
+                    <LinearLayout
+                        android:id="@+id/dragTopArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:paddingTop="12dp">
+
+                        <View
+                            android:layout_width="52dp"
+                            android:layout_height="4dp"
+                            android:background="#DDDDDD"
+                            android:alpha="0.6"/>
+                    </LinearLayout>
+
+                    <!-- 검색바 -->
+                    <LinearLayout
+                        android:id="@+id/searchContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="24dp"
+                        android:paddingEnd="24dp"
+                        android:background="@drawable/search_bar_bg"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_search"/>
+
+                        <EditText
+                            android:id="@+id/editSearch"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:background="@android:color/transparent"
+                            android:hint="할 일 검색"/>
+                    </LinearLayout>
+
+                    <!-- Recycler + Empty 문구를 감싸는 FrameLayout -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <!-- RecyclerView -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/memoRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:overScrollMode="never"/>
+
+                        <!-- 메모 없을 때 문구 -->
+                        <TextView
+                            android:id="@+id/emptyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="'+' 버튼을 눌러\n할 일을 추가해주세요."
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp"
+                            android:gravity="center"
+
+                            android:layout_gravity="top|center_horizontal"
+                            android:layout_marginTop="76dp"
+
+                            android:visibility="gone"/>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- 플로팅 + 버튼 -->
+    <ImageButton
+        android:id="@+id/addButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_add"
+        android:background="@drawable/fab_bg"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        android:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
